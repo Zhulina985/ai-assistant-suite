@@ -66,4 +66,9 @@ public class SpeakingController {
     public Map<String, String> tts(@RequestParam String text) {
         return Map.of("audio_base64", "", "format", "browser", "hint", "Use browser SpeechSynthesis");
     }
+
+    @PostMapping("/transcribe")
+    public Map<String, String> transcribe() {
+        return Map.of("text", "[Demo STT] 当前仅支持文字输入，请直接在输入框打字");
+    }
 }

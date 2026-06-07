@@ -1,80 +1,85 @@
 # 英语口语陪练
 
-AI 英语口语陪练工具 — 场景化对话、语音交互、发音评测、语法纠错、课后总结。
-
-## 功能
-
-- 多场景练习：面试、点餐、会议、旅行、日常对话
-- 实时语法纠错与发音评分
-- 语音输入（Whisper / 浏览器录音）
-- 课后学习总结
-- AI 模型开关：可切换「真实模型」/「演示模式」
+AI 英语口语陪练 — 场景对话、语法纠错、发音评分、课后总结。
 
 ## 技术栈
 
 | 层级 | 技术 |
 |------|------|
-| 后端 | **Java 17+ / Spring Boot**（主）或 Python / FastAPI（旧） |
-| 前端 | React 18 / TypeScript / Vite |
+| 后端 | **Java 17+ / Spring Boot 3.2** |
+| 数据库 | **MySQL 8** + Spring Data JPA |
+| 认证 | Spring Security + Session + BCrypt |
+| 前端 | HTML + CSS + JavaScript（原生） |
 | LLM | OpenRouter / OpenAI 兼容 API |
-| STT | OpenAI Whisper + 浏览器 Web Speech API |
-| TTS | 浏览器 SpeechSynthesis（Java 版）/ Edge-TTS（Python 版） |
 
 ## 快速开始
 
-> 项目路径：`D:\ai-assistant-suite`
+### 1. 配置 MySQL
 
-**CMD（推荐）：**
+在 MySQL 中执行：
+
+```sql
+CREATE DATABASE speaking_coach DEFAULT CHARACTER SET utf8mb4;
+```
+
+或运行 `docs/init-mysql.sql`。
+
+### 2. 配置环境变量
+
 ```cmd
-cd /d D:\ai-assistant-suite
+cd D:\ai-assistant-suite\backend-java
+copy .env.example .env
+```
+
+编辑 `.env`，填写：
+
+- `MYSQL_PASSWORD` — MySQL root 密码（**不要发到聊天里**）
+- `OPENAI_API_KEY` — OpenRouter Key（可选，无则演示模式）
+
+### 3. 启动
+
+```cmd
 start-backend-java.bat
 start-frontend.bat
 ```
 
-浏览器打开：http://127.0.0.1:5173
+浏览器打开：**http://127.0.0.1:5173/login.html**
 
-### 首次配置
-
-1. 双击 `setup-tools.bat`（检测 Java、安装 Maven）
-2. 复制 `backend\.env.example` 为 `backend\.env`，填入 API Key
-3. 启动后端 + 前端
-
-### 测试连接
-
-```cmd
-test-connection.bat
-```
+- 可注册 / 登录
+- 或点击「游客登录」直接体验
 
 ## 项目结构
 
 ```
 ai-assistant-suite/
-├── backend-java/          # Java 后端（推荐）
-├── backend/               # Python 后端（旧版，含 Whisper）
+├── backend-java/          # Java 后端（唯一后端）
+│   ├── src/main/java/     # Controller / Service / Entity
+│   └── .env.example       # 配置模板
 ├── frontend/
-│   └── src/pages/SpeakingCoach.tsx
+│   ├── login.html         # 登录 / 注册 / 游客
+│   ├── index.html         # 口语练习主页
+│   ├── css/
+│   └── js/
 └── docs/
-    └── AGENT_DIVISION.md
 ```
 
 ## API 概览
 
-### 口语陪练 `/api/speaking`
+### 认证 `/api/auth`
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| POST | `/register` | 注册 |
+| POST | `/login` | 登录 |
+| POST | `/guest` | 游客登录 |
+| GET | `/me` | 当前用户 |
+| POST | `/logout` | 退出 |
+
+### 口语陪练 `/api/speaking`（需登录）
 
 | 方法 | 路径 | 说明 |
 |------|------|------|
 | GET | `/scenarios` | 场景列表 |
-| POST | `/sessions` | 创建练习会话 |
-| POST | `/chat` | 发送消息并获取回复+纠错 |
-| POST | `/transcribe` | 语音转文字（Python 版） |
-| POST | `/tts` | 文字转语音 |
+| POST | `/sessions` | 创建会话 |
+| POST | `/chat` | 对话 + 纠错 |
 | POST | `/summary` | 课后总结 |
-
-## 环境变量
-
-| 变量 | 说明 | 默认值 |
-|------|------|--------|
-| `OPENAI_API_KEY` | API 密钥 | 空（演示模式） |
-| `OPENAI_BASE_URL` | API 基地址 | `https://api.openai.com/v1` |
-| `OPENAI_MODEL` | 对话模型 | `gpt-4o-mini` |
-| `WHISPER_MODEL` | 语音识别模型 | `whisper-1` |

@@ -7,8 +7,12 @@
 一、启动步骤（需要开两个终端窗口）
 
   窗口1 - 后端（Java）：双击 start-backend-java.bat
-  或 Python 旧版：start-backend.bat
-  窗口2 - 前端：双击 start-frontend.bat
+  窗口2 - 前端：双击 start-frontend.bat（HTML+CSS+JS，无需 npm）
+
+  首次使用：
+  1. MySQL 创建数据库 speaking_coach（见 docs/init-mysql.sql）
+  2. 编辑 backend-java\.env 填写 MYSQL_PASSWORD 和 API Key
+  3. 浏览器打开 http://127.0.0.1:5173/login.html
 
   或在 CMD 中：
   cd /d D:\ai-assistant-suite
@@ -37,7 +41,7 @@
 五、首次配置（只需做一次）
 
   双击 setup-tools.bat   （检测 Java、安装 Maven 到 D:\tools）
-  确认 backend\.env 里已填写 OpenRouter API Key
+  确认 backend-java\.env 里已填写 MySQL 密码和 API Key
 
 六、项目位置（已从 C 盘迁到 D 盘）
 

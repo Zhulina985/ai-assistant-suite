@@ -15,8 +15,15 @@ set "MAVEN_HOME=D:\tools\apache-maven-3.9.6"
 set "MVN=%MAVEN_HOME%\bin\mvn.cmd"
 if not exist "%MVN%" set "MVN=mvn"
 
-echo Loading env from D:\ai-assistant-suite\backend\.env
-for /f "usebackq eol=# tokens=1,* delims==" %%a in ("D:\ai-assistant-suite\backend\.env") do (
+if not exist ".env" (
+    echo [!] 请先复制 .env.example 为 .env 并填写 MySQL 密码和 API Key
+    copy .env.example .env
+    pause
+    exit /b 1
+)
+
+echo Loading env from backend-java\.env
+for /f "usebackq eol=# tokens=1,* delims==" %%a in (".env") do (
     if not "%%a"=="" set %%a=%%b
 )
 
@@ -43,6 +50,7 @@ if errorlevel 1 (
 
 echo.
 echo Java Backend: http://127.0.0.1:8000/api/health
+echo MySQL DB: %MYSQL_DATABASE%
 echo Press Ctrl+C to stop
 echo.
 java -jar target\ai-assistant-suite-1.0.0.jar

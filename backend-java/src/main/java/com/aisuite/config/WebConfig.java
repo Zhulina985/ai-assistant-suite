@@ -14,7 +14,8 @@ public class WebConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
                         .allowedOrigins(props.getCorsOrigins().split(","))
-                        .allowedMethods("*");
+                        .allowedMethods("*")
+                        .allowCredentials(true);
             }
         };
     }

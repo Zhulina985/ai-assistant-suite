@@ -53,6 +53,23 @@ public final class Models {
             @JsonProperty(defaultValue = "true") boolean useLlm
     ) {}
 
+    public record RegisterRequest(
+            @NotBlank String username,
+            @NotBlank String password
+    ) {}
+
+    public record LoginRequest(
+            @NotBlank String username,
+            @NotBlank String password
+    ) {}
+
+    public record AuthResponse(
+            Long userId,
+            String username,
+            String role,
+            boolean guest
+    ) {}
+
     public record SpeakingSummaryResponse(
             int overallScore,
             List<String> strengths,

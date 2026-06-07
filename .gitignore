@@ -1,4 +1,5 @@
 # Secrets
+backend-java/.env
 backend/.env
 .env
 *.env.local
@@ -16,9 +17,11 @@ backend/.pytest_cache/
 *.pyc
 *.pyo
 
-# Node
+# Node (旧版 React 前端，已弃用)
 frontend/node_modules/
 frontend/dist/
+frontend/.vite/
+frontend/src/
 
 # IDE
 .idea/
