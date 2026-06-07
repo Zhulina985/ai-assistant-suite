@@ -1,0 +1,53 @@
+英语口语陪练 - Windows 使用说明
+=====================================
+
+【重要】你当前用的是 CMD，请用 .bat 文件，不要用 .ps1 文件！
+  .ps1 在 CMD 里不会执行（所以看起来"没反应"）
+
+一、启动步骤（需要开两个终端窗口）
+
+  窗口1 - 后端（Java）：双击 start-backend-java.bat
+  或 Python 旧版：start-backend.bat
+  窗口2 - 前端：双击 start-frontend.bat
+
+  或在 CMD 中：
+  cd /d D:\ai-assistant-suite
+  start-backend-java.bat
+  start-frontend.bat
+
+二、测试连接
+
+  双击 test-connection.bat
+
+三、访问地址
+
+  前端页面：http://127.0.0.1:5173
+  后端文档：http://127.0.0.1:8000/docs
+
+四、常见错误
+
+  [WinError 10013] 端口被占用
+  -> 说明后端已在运行，无需重复启动
+  -> 或运行 start-backend.bat（会自动释放端口）
+
+  .ps1 脚本没反应
+  -> 你在 CMD 里运行了 PowerShell 脚本
+  -> 请改用 .bat 文件
+
+五、首次配置（只需做一次）
+
+  双击 setup-tools.bat   （检测 Java、安装 Maven 到 D:\tools）
+  确认 backend\.env 里已填写 OpenRouter API Key
+
+六、项目位置（已从 C 盘迁到 D 盘）
+
+  新路径: D:\ai-assistant-suite
+  旧路径可删: C:\Users\zhuju\.cursor\projects\empty-window\ai-assistant-suite
+  在 Cursor 中: 文件 -> 打开文件夹 -> D:\ai-assistant-suite
+
+七、手动启动后端（仅当 bat 不工作时）
+
+  cd /d D:\ai-assistant-suite\backend-java
+  set JAVA_HOME=C:\Program Files\Java\jdk-24
+  D:\tools\apache-maven-3.9.6\bin\mvn.cmd -q -DskipTests package
+  java -jar target\ai-assistant-suite-1.0.0.jar

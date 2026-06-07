@@ -1,0 +1,36 @@
+# Secrets
+backend/.env
+.env
+*.env.local
+
+# Java
+backend-java/target/
+*.jar
+*.class
+
+# Python
+backend/venv/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/.pytest_cache/
+*.pyc
+*.pyo
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test artifacts
+full-test-results.json
+retest.json
+test-results.json
+grammar-test.json
