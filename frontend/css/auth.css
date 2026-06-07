@@ -56,6 +56,12 @@
   color: white;
 }
 
+.auth-tab:focus,
+.auth-tab:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.22);
+}
+
 .auth-form label {
   margin-top: 12px;
 }

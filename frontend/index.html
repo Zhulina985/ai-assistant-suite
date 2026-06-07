@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>英语口语陪练</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/transitions.css" />
 </head>
 <body>
-  <div class="app-shell">
+  <div class="app-shell" data-page-root data-page="app">
     <!-- 左侧边栏 -->
     <aside class="sidebar">
       <h1>英语口语陪练</h1>
@@ -40,14 +41,14 @@
     <!-- 右侧主区域 -->
     <main class="main" id="main-area">
       <!-- 加载中 -->
-      <div id="loading-view" class="main-loading">
+      <div id="loading-view" class="main-loading view-panel">
         <p>正在连接后端服务...</p>
       </div>
 
       <!-- 练习页面 -->
-      <div id="app-view" class="speaking-page hidden">
+      <div id="app-view" class="speaking-page hidden view-panel">
         <!-- 第一步：选择场景 -->
-        <section id="setup-section" class="setup-section">
+        <section id="setup-section" class="setup-section view-panel">
           <p class="page-desc">选择场景进行真实对话训练，支持语音输入、发音评测与语法纠错。</p>
 
           <div class="card grid-2">
@@ -77,7 +78,7 @@
         </section>
 
         <!-- 第二步：对话中 -->
-        <section id="chat-section" class="hidden">
+        <section id="chat-section" class="hidden view-panel">
           <div class="session-bar">
             <div class="session-info">
               <span id="session-scenario" class="session-tag">面试</span>
@@ -106,7 +107,7 @@
         <div id="error-banner" class="error-banner hidden" role="alert"></div>
 
         <!-- 第三步：课后总结 -->
-        <section id="summary-section" class="card summary-card hidden">
+        <section id="summary-section" class="card summary-card hidden view-panel">
           <div class="summary-header">
             <h3>课后总结</h3>
             <button id="btn-again" class="btn btn-primary">再练一次</button>
@@ -137,6 +138,7 @@
 
   <!-- 按顺序加载 JS 文件 -->
   <script src="js/api.js"></script>
+  <script src="js/transitions.js"></script>
   <script src="js/speech.js"></script>
   <script src="js/app.js"></script>
 </body>

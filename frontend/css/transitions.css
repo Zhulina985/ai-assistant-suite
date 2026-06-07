@@ -1,0 +1,149 @@
+/* 页面与视图过渡动画 */
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter,
+  .page-exit,
+  .view-enter,
+  .view-exit,
+  .auth-form-panel {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+body.is-navigating {
+  overflow: hidden;
+}
+
+/* ---------- 整页跳转：登录页 ---------- */
+[data-page="auth"].page-enter {
+  animation: pageEnterAuth 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+[data-page="auth"].page-exit {
+  animation: pageExitAuth 0.28s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+@keyframes pageEnterAuth {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pageExitAuth {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+}
+
+/* ---------- 整页跳转：练习主页 ---------- */
+[data-page="app"].page-enter {
+  animation: pageEnterApp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+[data-page="app"].page-exit {
+  animation: pageExitApp 0.3s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+@keyframes pageEnterApp {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pageExitApp {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+}
+
+/* ---------- 登录 / 注册表单切换 ---------- */
+.auth-forms-wrap {
+  position: relative;
+  min-height: 220px;
+}
+
+.auth-form-panel {
+  transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s;
+}
+
+.auth-form-panel:not(.is-active) {
+  opacity: 0;
+  transform: translateX(14px);
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  visibility: hidden;
+}
+
+.auth-form-panel.is-active {
+  opacity: 1;
+  transform: translateX(0);
+  position: relative;
+  visibility: visible;
+}
+
+.auth-tab {
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.auth-tab:active {
+  transform: scale(0.98);
+}
+
+/* ---------- 主页内部视图切换 ---------- */
+.view-panel.view-enter {
+  animation: viewEnter 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.view-panel.view-exit {
+  animation: viewExit 0.24s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+@keyframes viewEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes viewExit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+.main-loading.view-exit {
+  animation: viewExit 0.22s ease both;
+}

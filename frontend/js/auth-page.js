@@ -5,7 +5,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   // 已登录则跳转到主页
   api.me().then(function () {
-    window.location.href = "index.html";
+    pageTransition.navigate("index.html");
   }).catch(function () {});
 
   bindTabs();
@@ -22,16 +22,16 @@ function bindTabs() {
   tabLogin.addEventListener("click", function () {
     tabLogin.classList.add("active");
     tabRegister.classList.remove("active");
-    loginForm.classList.remove("hidden");
-    registerForm.classList.add("hidden");
+    loginForm.classList.add("is-active");
+    registerForm.classList.remove("is-active");
     hideError();
   });
 
   tabRegister.addEventListener("click", function () {
     tabRegister.classList.add("active");
     tabLogin.classList.remove("active");
-    registerForm.classList.remove("hidden");
-    loginForm.classList.add("hidden");
+    registerForm.classList.add("is-active");
+    loginForm.classList.remove("is-active");
     hideError();
   });
 }
@@ -65,7 +65,7 @@ function onGuestLogin() {
 }
 
 function goHome() {
-  window.location.href = "index.html";
+  pageTransition.navigate("index.html");
 }
 
 function showError(err) {

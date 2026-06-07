@@ -6,10 +6,11 @@
   <title>登录 - 英语口语陪练</title>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="css/transitions.css" />
 </head>
 <body class="auth-body">
   <div class="auth-container">
-    <div class="auth-card">
+    <div class="auth-card" data-page-root data-page="auth">
       <h1>英语口语陪练</h1>
       <p class="auth-subtitle">登录后开始 AI 口语练习</p>
 
@@ -19,30 +20,32 @@
         <button id="tab-register" class="auth-tab" type="button">注册</button>
       </div>
 
-      <!-- 登录表单 -->
-      <form id="login-form" class="auth-form">
-        <label for="login-username">用户名</label>
-        <input id="login-username" type="text" placeholder="请输入用户名" required />
+      <div class="auth-forms-wrap">
+        <!-- 登录表单 -->
+        <form id="login-form" class="auth-form auth-form-panel is-active">
+          <label for="login-username">用户名</label>
+          <input id="login-username" type="text" placeholder="请输入用户名" required />
 
-        <label for="login-password">密码</label>
-        <input id="login-password" type="password" placeholder="请输入密码" required />
+          <label for="login-password">密码</label>
+          <input id="login-password" type="password" placeholder="请输入密码" required />
 
-        <button type="submit" class="btn btn-primary btn-block">登录</button>
-      </form>
+          <button type="submit" class="btn btn-primary btn-block">登录</button>
+        </form>
 
-      <!-- 注册表单（默认隐藏） -->
-      <form id="register-form" class="auth-form hidden">
-        <label for="reg-username">用户名</label>
-        <input id="reg-username" type="text" placeholder="至少 3 个字符" required />
+        <!-- 注册表单 -->
+        <form id="register-form" class="auth-form auth-form-panel">
+          <label for="reg-username">用户名</label>
+          <input id="reg-username" type="text" placeholder="至少 3 个字符" required />
 
-        <label for="reg-password">密码</label>
-        <input id="reg-password" type="password" placeholder="至少 6 个字符" required />
+          <label for="reg-password">密码</label>
+          <input id="reg-password" type="password" placeholder="至少 6 个字符" required />
 
-        <label for="reg-password2">确认密码</label>
-        <input id="reg-password2" type="password" placeholder="再次输入密码" required />
+          <label for="reg-password2">确认密码</label>
+          <input id="reg-password2" type="password" placeholder="再次输入密码" required />
 
-        <button type="submit" class="btn btn-primary btn-block">注册并登录</button>
-      </form>
+          <button type="submit" class="btn btn-primary btn-block">注册并登录</button>
+        </form>
+      </div>
 
       <div class="auth-divider">或</div>
 
@@ -54,6 +57,7 @@
   </div>
 
   <script src="js/api.js"></script>
+  <script src="js/transitions.js"></script>
   <script src="js/auth-page.js"></script>
 </body>
 </html>

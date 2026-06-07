@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
     checkBackendHealth();
     loadScenarios();
   }).catch(function () {
-    window.location.href = "login.html";
+    pageTransition.navigate("login.html");
   });
 });
 
@@ -75,7 +75,7 @@ function bindEvents() {
   document.getElementById("btn-again").addEventListener("click", resetSession);
   document.getElementById("btn-logout").addEventListener("click", function () {
     api.logout().then(function () {
-      window.location.href = "login.html";
+      pageTransition.navigate("login.html");
     });
   });
 
@@ -151,8 +151,10 @@ function loadScenarios() {
 
 /** 隐藏加载页，显示主界面 */
 function showApp() {
-  document.getElementById("loading-view").classList.add("hidden");
-  document.getElementById("app-view").classList.remove("hidden");
+  pageTransition.switchViews(
+    [document.getElementById("loading-view")],
+    document.getElementById("app-view")
+  );
   document.getElementById("btn-start").disabled = !appState.backendConnected;
 }
 
@@ -219,8 +221,10 @@ function startSession() {
     }
 
     // 切换到对话界面
-    document.getElementById("setup-section").classList.add("hidden");
-    document.getElementById("chat-section").classList.remove("hidden");
+    pageTransition.switchViews(
+      [document.getElementById("setup-section")],
+      document.getElementById("chat-section")
+    );
     document.getElementById("chat-input-row").classList.remove("hidden");
 
     updateSessionBar();
@@ -336,7 +340,10 @@ function endSession() {
 
   api.speakingSummary(appState.sessionId, appState.useModel).then(function (summary) {
     document.getElementById("chat-input-row").classList.add("hidden");
-    document.getElementById("summary-section").classList.remove("hidden");
+    pageTransition.switchViews(
+      [document.getElementById("chat-section")],
+      document.getElementById("summary-section")
+    );
 
     document.getElementById("stat-score").textContent = summary.overall_score;
     document.getElementById("stat-strengths").textContent = (summary.strengths || []).length;
@@ -358,9 +365,13 @@ function resetSession() {
   appState.messages = [];
   appState.recording = false;
 
-  document.getElementById("setup-section").classList.remove("hidden");
-  document.getElementById("chat-section").classList.add("hidden");
-  document.getElementById("summary-section").classList.add("hidden");
+  pageTransition.switchViews(
+    [
+      document.getElementById("chat-section"),
+      document.getElementById("summary-section"),
+    ],
+    document.getElementById("setup-section")
+  );
   document.getElementById("chat-input-row").classList.remove("hidden");
   document.getElementById("message-input").value = "";
   document.getElementById("btn-voice").textContent = "语音输入";
