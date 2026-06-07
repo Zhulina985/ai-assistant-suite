@@ -1,24 +1,11 @@
-项目已迁移到 D 盘
-==================
+本项目使用说明
+==============
 
-新路径: D:\ai-assistant-suite
+详细步骤请查看 README.md 或 使用说明.txt
 
-为什么迁移?
-- C 盘仅剩约 13 GB，D 盘有 153 GB 可用空间
-
-旧路径 (已删除):
-C:\Users\zhuju\.cursor\projects\empty-window\ai-assistant-suite
-
-在 Cursor 中打开新项目:
-文件 -> 打开文件夹 -> D:\ai-assistant-suite
-
-首次配置步骤:
-1. 双击 setup-tools.bat     (安装/检测 Java + Maven)
-2. 确认 backend\.env 中 API Key 已配置
-3. 双击 start-backend-java.bat
-4. 双击 start-frontend.bat
-5. 打开 http://127.0.0.1:5173
-
-注意:
-- Python 虚拟环境 (backend\venv) 未复制，Java 版不需要
-- node_modules 已复制，一般无需重新 npm install
+快速开始:
+1. setup-tools.bat
+2. 编辑 backend-java\.env
+3. init-db.bat
+4. start-backend-java.bat + start-frontend.bat
+5. 打开 http://127.0.0.1:5173/login.html

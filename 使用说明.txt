@@ -1,57 +1,42 @@
 英语口语陪练 - Windows 使用说明
 =====================================
 
-【重要】你当前用的是 CMD，请用 .bat 文件，不要用 .ps1 文件！
-  .ps1 在 CMD 里不会执行（所以看起来"没反应"）
+【从 GitHub 克隆后，按顺序操作】
 
-一、启动步骤（需要开两个终端窗口）
+  1. setup-tools.bat        检测 Java / Python / 创建 .env
+  2. 编辑 backend-java\.env  填写 MYSQL_PASSWORD（必填）
+  3. init-db.bat            创建 MySQL 数据库
+  4. start-backend-java.bat  启动后端（窗口1）
+  5. start-frontend.bat      启动前端（窗口2）
+  6. 浏览器打开 http://127.0.0.1:5173/login.html
 
-  窗口1 - 后端（Java）：双击 start-backend-java.bat
-  窗口2 - 前端：双击 start-frontend.bat（HTML+CSS+JS，无需 npm）
+【环境要求】
 
-  首次使用：
-  1. MySQL 创建数据库 speaking_coach（见 docs/init-mysql.sql）
-  2. 编辑 backend-java\.env 填写 MYSQL_PASSWORD 和 API Key
-  3. 浏览器打开 http://127.0.0.1:5173/login.html
+  - JDK 17 或更高版本
+  - MySQL 8（服务需已启动）
+  - Python 3（用于前端静态服务）
+  - Maven 已内置，无需单独安装
 
-  或在 CMD 中：
-  cd /d D:\ai-assistant-suite
-  start-backend-java.bat
-  start-frontend.bat
+【测试连接】
 
-二、测试连接
+  test-connection.bat
 
-  双击 test-connection.bat
+【常见错误】
 
-三、访问地址
+  Unknown database 'speaking_coach'
+  -> 运行 init-db.bat
 
-  前端页面：http://127.0.0.1:5173
-  后端文档：http://127.0.0.1:8000/docs
+  MYSQL_PASSWORD 为空
+  -> 编辑 backend-java\.env
 
-四、常见错误
+  端口 8000 被占用
+  -> 运行 kill-port-8000.bat
 
-  [WinError 10013] 端口被占用
-  -> 说明后端已在运行，无需重复启动
-  -> 或运行 start-backend.bat（会自动释放端口）
+  未检测到 Python
+  -> 安装 Python 3 并勾选 Add to PATH
 
-  .ps1 脚本没反应
-  -> 你在 CMD 里运行了 PowerShell 脚本
-  -> 请改用 .bat 文件
+【注意】
 
-五、首次配置（只需做一次）
-
-  双击 setup-tools.bat   （检测 Java、安装 Maven 到 D:\tools）
-  确认 backend-java\.env 里已填写 MySQL 密码和 API Key
-
-六、项目位置（已从 C 盘迁到 D 盘）
-
-  新路径: D:\ai-assistant-suite
-  旧路径可删: C:\Users\zhuju\.cursor\projects\empty-window\ai-assistant-suite
-  在 Cursor 中: 文件 -> 打开文件夹 -> D:\ai-assistant-suite
-
-七、手动启动后端（仅当 bat 不工作时）
-
-  cd /d D:\ai-assistant-suite\backend-java
-  set JAVA_HOME=C:\Program Files\Java\jdk-24
-  D:\tools\apache-maven-3.9.6\bin\mvn.cmd -q -DskipTests package
-  java -jar target\ai-assistant-suite-1.0.0.jar
+  - 使用 .bat 文件，在 CMD 或资源管理器中双击即可
+  - .env 含密码和 API Key，不要提交到 Git
+  - API Key 可选，不填也能游客体验
